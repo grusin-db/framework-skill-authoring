@@ -121,3 +121,18 @@ The output is a folder of skills. Drop it where your consumer agent reads skills
   folder with a `SKILL.md`. Genie Code loads them in Agent mode; start a new
   thread after edits. See
   [Extend Genie Code with agent skills](https://docs.databricks.com/aws/en/genie-code/skills).
+
+## Databricks: install the framework on compute
+
+The skills teach an agent to *use* a framework; the framework's in-scope
+libraries still need to be installed on the compute that runs the code, on both
+clusters and serverless.
+
+- **Clusters:** trivial — add the framework and its in-scope libraries as
+  [cluster libraries](https://docs.databricks.com/aws/en/libraries/cluster-libraries)
+  so every notebook and job on the cluster can import them.
+- **Serverless:** have an admin set up a workspace-wide
+  [base environment](https://docs.databricks.com/aws/en/admin/workspace-settings/base-environment)
+  with those libraries. When serverless is selected it loads automatically, so
+  users avoid the runtime errors they'd hit running serverless without the
+  custom libs.
