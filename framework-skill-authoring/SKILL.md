@@ -13,6 +13,7 @@ description: >-
   analyze, map to a universal capability taxonomy, generate, validate --
   and emits an entry router, an always-injected workspace-instructions
   file, and one capability skill per domain.
+version: 0.1.0
 ---
 
 # Framework Skill Authoring
