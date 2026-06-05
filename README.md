@@ -12,10 +12,25 @@ Databricks. The capability taxonomy is broad enough to map most code
 frameworks.
 
 ```mermaid
-flowchart LR
-  src[Framework source] --> author[Author agent + this skill]
-  author -->|analyze, map, generate, validate| fam[Skill family]
-  fam --> consumer[Consumer agent: only the installed package]
+flowchart TB
+  subgraph AUTHOR[Author time -- has source]
+    direction LR
+    SRC[Framework source<br/>code, tests, docs] --> AGENT[Author agent +<br/>this meta-skill]
+  end
+
+  AGENT -->|analyze, map,<br/>generate, validate| FAMILY[Skill family<br/>entry router + capability skills<br/>+ workspace instructions]
+
+  subgraph RUNTIME[Run time -- no source]
+    direction LR
+    PKG[Installed package<br/>wheel / jar] --> CONSUMER[Consumer agent]
+  end
+
+  FAMILY --> CONSUMER
+
+  classDef artifact fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#1f2937;
+  classDef agent fill:#dbeafe,stroke:#2563eb,color:#1f2937;
+  class FAMILY artifact
+  class AGENT,CONSUMER agent
 ```
 
 ## This repository
