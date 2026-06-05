@@ -101,8 +101,9 @@ listed here.
 
 ## Environment and naming vocabularies
 
-- **Environment tiers & promotion** -- the tiers (e.g. dev -> test -> accept
-  -> prod) and the rule to promote in order (never production first). How
+- **Environment tiers & promotion** -- the tiers (e.g. dev -> test ->
+  acceptance -> prod) and the rule to promote in order (never production
+  first). How
   per-env config is resolved; how secrets/env-specific values are injected
   vs which names are auto-mutated per environment.
 - **Naming & FQN conventions** -- per-entity vs per-system folders; canonical

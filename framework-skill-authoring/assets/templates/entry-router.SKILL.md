@@ -75,7 +75,7 @@ file names, and any naming/FQN rules.>
 
 ## Environment & promotion
 
-- Tiers: <e.g. dev -> test -> accept -> prod>. Promote in order; never
+- Tiers: <e.g. dev -> test -> acceptance -> prod>. Promote in order; never
   production first.
 - Per-env values resolve from the config object: <how>.
 
