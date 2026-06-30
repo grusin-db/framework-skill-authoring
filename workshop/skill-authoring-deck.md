@@ -11,13 +11,13 @@ paginate: true
 ## Theory 1 - Write for the source-blind consumer
 
 Target: a coding agent in **Databricks Genie Code** with your package installed
-but **no repo, no docs, no internet**. (Theory: slides 1-3 - DQX practice: 4-6.)
+but **no repo, no docs, no internet**.
 
 **Two agents, two worlds.**
 
-- **You (author)** have the source: code, tests, docs, the whole repo.
-- **The consumer agent** has **only the installed `.whl`** - it runs code and
-  calls the public API, but it **cannot open your files**.
+- **You (author)** have the source: code, tests, docs, examples.
+- **The consumer agent** has **only the installed `.whl`** - it can call the
+  public API but **cannot open your files**.
 
 **Golden rule:** everything the consumer needs lives **inside the skill**.
 
@@ -25,19 +25,22 @@ but **no repo, no docs, no internet**. (Theory: slides 1-3 - DQX practice: 4-6.)
 
 ---
 
-# Theory 2 - Self-containment is the whole job
+# Theory 2 - Get activated first, then be self-contained
 
-The non-negotiables for every file you write:
+**The frontmatter `description` is THE most important line in the skill.**
+Get it wrong and the agent never loads the skill - nothing else you wrote
+matters.
 
-- **No source paths, no "see file X"** - inline complete, copy-pasteable examples.
-- **Cross-link sibling skills by name**, never by file path.
-- **Wire the framework's runtime doc / discovery API** as the escape hatch for
-  detail you did not inline.
-- **Prefer the framework's public primitives** over hand-rolled code.
-- **Never hardcode env values** (paths, catalogs) - compose them from the
-  config object, or a clearly-marked placeholder if there is no config object.
-- The frontmatter **`description` is the most important line** - third person,
-  **WHAT + WHEN**, real trigger terms. It decides whether the skill activates.
+**WHAT it does + WHEN to use it** - pack in the trigger words a user would actually type.
+
+Once it loads, **everything the skill needs is inside the skill:**
+
+- Complete, copy-pasteable examples - no source paths, no "see file X".
+- Cross-link sibling skills by name, or **other.md** file path, **never by ../../path**.
+- Prefer the framework's public primitives over hand-rolled code.
+- Never hardcode env values - compose from config, or a clear placeholder.
+- Can't inline some detail? Tell the agent to call the framework's own
+  runtime validate / list functions instead of guessing.
 
 ---
 
@@ -61,29 +64,37 @@ a wrong enum, or "I need to see the source" is a gap **in the skill**.
 
 # Practice 1 - Source-blind, with DQX
 
-Demo library: **`databricks-labs-dqx`** (PySpark data quality).
+Demo library: **`databricks-labs-dqx`** (databricks data quality).
 
-The consumer only ran `pip install databricks-labs-dqx`. So the skill must
-inline the real call surface - never point at the DQX repo:
+The consumer only has the wheel, so the skill inlines the real flow - **load
+the checks, validate, then apply** - never pointing at the repo:
 
 ```python
+import yaml
 from databricks.sdk import WorkspaceClient
 from databricks.labs.dqx.engine import DQEngine
+
+df = spark.table("<catalog>.<schema>.transactions")   # placeholder input
+
+checks = yaml.safe_load("""
+- criticality: error             # error = quarantine, warn = flag only
+  check:
+    function: is_not_less_than   # single bound -> NOT is_in_range
+    arguments:
+      column: price
+      limit: 0
+""")
+
+status = DQEngine.validate_checks(checks)              # validate first
+assert not status.has_errors, status.errors
 
 dq_engine = DQEngine(WorkspaceClient())
 good_df, bad_df = dq_engine.apply_checks_by_metadata_and_split(df, checks)
 ```
 
-```yaml
-- criticality: error      # error = quarantine, warn = flag only
-  check: { function: is_not_null, arguments: { column: id } }
-```
-
-If it is not in the skill, the consumer cannot know it.
-
 ---
 
-# Practice 2 - Self-containment, with DQX
+# Practice 2 - The same rules, in the DQX skill
 
 Apply each rule to the DQX skill:
 
@@ -99,19 +110,22 @@ Apply each rule to the DQX skill:
 
 ---
 
-# Practice 3 - Structure, proof, deploy (DQX)
+# Practice 3 - The DQX family you ship
 
-**The regenerated DQX family** (entry router + capability skills): defining
-checks, applying/splitting checks, profiling and rule generation, storage.
+```text
+.assistant/skills/             # Genie Code loads skill folders from here
+├── dqx/                       # router + onboarding hub (tree, index, quickstart)
+├── dqx-define-checks/         # author the rules (YAML / Python)
+├── dqx-apply-checks/          # run checks, split good vs bad rows
+├── dqx-profile-and-generate/  # profile data, suggest candidate rules
+└── dqx-storage/               # load / save checks (files, tables, volumes)
+```
 
-**Prove it (no-source):** with only the wheel, ask the agent to *"add a check
-that drops rows where `price` is negative and split good vs bad."* It must
-produce valid DQX - real `criticality`, real function names - without the repo.
+**Prove it:** a fresh (sub) agent with only these skills + the wheel must handle
+*"drop rows where price < 0, split good vs bad"* with real DQX - no repo.
 
-**Deploy to Genie Code:**
+Tell agent that looking at anything else than skills and .whl is considered cheating.
 
-- Drop each skill folder under `.assistant/skills/`.
-- Install DQX on the compute (cluster libraries, or a serverless base
-  environment) so the imports actually resolve.
+**Deploy:** copy the folders to `.assistant/skills/`, install DQX on the compute.
 
-Now: we delete DQX's shipped `skills/` and rebuild it live. See the runbook.
+Now rebuild it live: delete DQX's shipped `skills/` - see the runbook.

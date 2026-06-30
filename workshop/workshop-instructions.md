@@ -19,4 +19,4 @@ paginate: false
    it must produce real DQX and never ask for the source
 6. **Deploy** - copy the skill folders into `.assistant/skills/` in Genie Code
 7. **Try it** - in Genie Code, ask for a real DQX task and watch your skill
-   drive it end to end
+   drive it
