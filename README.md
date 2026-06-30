@@ -146,14 +146,21 @@ clusters and serverless.
 Want to run this as a workshop (or try it yourself)? The [`workshop/`](workshop/)
 folder has ready-to-present material that rebuilds a real library's skill family
 from only the installed wheel, using [DQX](https://github.com/databrickslabs/dqx)
-(`databricks-labs-dqx`) as the demo:
+(`databricks-labs-dqx`) as the demo. See [`workshop/README.md`](workshop/README.md)
+for the files and flow:
 
+- [`workshop/requirements.md`](workshop/requirements.md) — what to prepare
+  **before** the workshop: a laptop, an agent (Cursor / Claude Code), a Databricks
+  workspace, and the Spark / Databricks Connect setup.
 - [`workshop/skill-authoring-deck.md`](workshop/skill-authoring-deck.md) — a
   6-slide [Marp](https://marp.app/) deck: 3 theory slides + the same 3 points
   applied to DQX.
 - [`workshop/workshop-instructions.md`](workshop/workshop-instructions.md) — a
   one-slide hands-on runbook: install the wheel, clone DQX, delete its shipped
   `skills/`, rebuild, test with a source-blind agent, deploy to Genie Code.
+- [`workshop/testing-skills-with-subagents.md`](workshop/testing-skills-with-subagents.md) —
+  a deck on proving a skill works: spawn source-blind sub-agents that must produce
+  runnable code from the skill alone (rubric + execution gates).
 
 Render the slides with:
 
