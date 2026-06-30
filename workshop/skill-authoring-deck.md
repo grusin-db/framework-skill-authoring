@@ -35,12 +35,15 @@ matters.
 
 Once it loads, **everything the skill needs is inside the skill:**
 
-- Complete, copy-pasteable examples - no source paths, no "see file X".
-- Cross-link sibling skills by name, or **other.md** file path, **never by ../../path**.
+- Complete, copy-pasteable examples - no source paths, no "see src/file X".
+- Cross-link sibling skills by name, or **other.md** in-skill file name or folder
 - Prefer the framework's public primitives over hand-rolled code.
 - Never hardcode env values - compose from config, or a clear placeholder.
 - Can't inline some detail? Tell the agent to call the framework's own
   runtime validate / list functions instead of guessing.
+- Docs / examples are not accesible anymore. Need them? Pack them as .whl resources
+  and load them on runtime
+- No external links to websites. Agents are trained not to open external "insecure" urls
 
 ---
 
@@ -48,10 +51,11 @@ Once it loads, **everything the skill needs is inside the skill:**
 
 **Structure (the family):**
 
-- Always-injected **workspace instructions** ("read the entry skill first").
+- Always-injected **workspace instructions** ("read the entry skill first before...").
 - An **entry router** skill (`<fw>`): decision tree + skill index.
 - **One capability skill per domain** (`<fw>-<capability>`).
 - Progressive disclosure; keep each `SKILL.md` under ~500 lines.
+- Skills can reference each other - Onthology
 
 **Process (four phases):** analyze -> map to a capability taxonomy ->
 generate -> validate.
@@ -64,7 +68,9 @@ a wrong enum, or "I need to see the source" is a gap **in the skill**.
 
 # Practice 1 - Source-blind, with DQX
 
-Demo library: **`databricks-labs-dqx`** (databricks data quality).
+Demo library: **`databricks-labs-dqx`** (databricks data quality framework).
+
+> DQX is a data quality framework for Apache Spark that enables you to define, monitor, and address data quality issues in your Python-based data pipelines.
 
 The consumer only has the wheel, so the skill inlines the real flow - **load
 the checks, validate, then apply** - never pointing at the repo:
@@ -100,8 +106,8 @@ Apply each rule to the DQX skill:
 
 - **Use DQX's own primitives:** `check_funcs`, `DQRowRule` / `DQDatasetRule`,
   `DQEngine.validate_checks(checks)`, `DQProfiler` - do not hand-roll
-  validation logic.
-- **Discovery escape hatch:** point the agent at `DQEngine.validate_checks(...)`
+  validation logic. DQX has it all.
+- **Fast Runtime Validation:** point the agent at `DQEngine.validate_checks(...)`
   and the `check_funcs` registry instead of guessing function names.
 - **Compose from config:** resolve workspace context from `WorkspaceClient()`;
   never hardcode a catalog or table name.

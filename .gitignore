@@ -1,0 +1,3 @@
+# Local, machine-specific editor / Databricks config
+.databricks/
+.vscode/
