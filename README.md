@@ -6,6 +6,10 @@ Point it at a framework you have the **source** for, and it generates a
 self-contained Agent Skills family that another agent can use later with only
 the **installed package** (wheel/jar) — no source, no repo, no docs.
 
+![How to create a skill: 1. draw some circles, 2. draw the rest of the owl](misc/meme.png)
+
+Most "how to make a skill" guides stop at step 1. This repo is step 2.
+
 It's geared mainly toward **data engineering** frameworks, but works just as
 well for ML/data-science libraries or anything you'd typically run on
 Databricks. The capability taxonomy is broad enough to map most code
