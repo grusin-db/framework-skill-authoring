@@ -24,6 +24,8 @@ paginate: false
    drive it
 
 ---
+<!-- 20 minute workshop; once finishes -->
+---
 
 # ...oh, now you want to do it at scale?
 
