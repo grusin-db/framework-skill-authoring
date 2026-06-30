@@ -136,3 +136,23 @@ clusters and serverless.
   with those libraries. When serverless is selected it loads automatically, so
   users avoid the runtime errors they'd hit running serverless without the
   custom libs.
+
+## Workshop
+
+Want to run this as a workshop (or try it yourself)? The [`workshop/`](workshop/)
+folder has ready-to-present material that rebuilds a real library's skill family
+from only the installed wheel, using [DQX](https://github.com/databrickslabs/dqx)
+(`databricks-labs-dqx`) as the demo:
+
+- [`workshop/skill-authoring-deck.md`](workshop/skill-authoring-deck.md) — a
+  6-slide [Marp](https://marp.app/) deck: 3 theory slides + the same 3 points
+  applied to DQX.
+- [`workshop/workshop-instructions.md`](workshop/workshop-instructions.md) — a
+  one-slide hands-on runbook: install the wheel, clone DQX, delete its shipped
+  `skills/`, rebuild, test with a source-blind agent, deploy to Genie Code.
+
+Render the slides with:
+
+```
+npx @marp-team/marp-cli@latest workshop/skill-authoring-deck.md -o deck.pdf
+```
