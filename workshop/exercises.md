@@ -66,7 +66,7 @@ Using DQX, add data quality checks to samples.nyctaxi.trips:
 
 **2. Paste this frontmatter** (the `description` is what makes it fire):
 
-```yaml
+````text
 ---
 name: dqx
 description: >-
@@ -74,7 +74,15 @@ description: >-
   asks about data quality, quality checks, data validation, profiling, or
   splitting good vs bad rows.
 ---
+
+Example usage of DQX. If you hit a "package not available" error, run
+`pip install databricks-labs-dqx`.
+
+```python
+import yaml
+...
 ```
+````
 
 **3. Below it, paste the DQX code** from **"Practice 1 — Source-blind, with DQX"**
 in [`skill-authoring-deck.md`](skill-authoring-deck.md).
