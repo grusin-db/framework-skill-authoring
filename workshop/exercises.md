@@ -144,6 +144,12 @@ these constraints** so it can't cheat off the source you just unzipped:
 Using DQX, add quality checks to samples.nyctaxi.trips: flag rows where
 fare_amount <= 0, drop rows where trip_distance < 0, split good vs bad, run it.
 
+Spark setup (skip if a `spark` session already exists, e.g. a Databricks
+notebook; skip the source line if your shell already loaded the env):
+- Load env from repo root: set -a; source .databricks/.databricks.env; set +a
+- Create Spark: from databricks.connect import DatabricksSession;
+  spark = DatabricksSession.builder.getOrCreate()
+
 Constraints (do not break):
 - Use ONLY the installed databricks-labs-dqx package and the dqx skills.
 - Do NOT open, read, list, grep, or search the DQX source, docs, examples,
