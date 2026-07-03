@@ -112,8 +112,8 @@ Result: real DQX calls and runnable code.
 
 # Exercise 3 — build a real skill family
 
-One slide helped, but it isn't a family. Build DQX's skills **from the code** —
-now **on your laptop**, in Cursor / Claude Code (not the browser).
+Not a family yet. Build DQX's skills **from the code**, on your **laptop**
+(Cursor / Claude Code, not the browser).
 
 **1. Get the source as a ZIP** (not `git` — history lets the agent cheat):
 
@@ -121,23 +121,23 @@ now **on your laptop**, in Cursor / Claude Code (not the browser).
 curl -L https://github.com/databrickslabs/dqx/archive/refs/heads/main.zip -o dqx.zip && unzip dqx.zip
 ```
 
-**2. Delete the `skills/` folder** inside the unzipped repo — that's the answer
-key the agent could copy from.
+**2. Delete the `skills/` folder** in the unzipped repo — the answer key.
 
-**3. Build it yourself** into `.agents/skills/` (your local agent's skills folder),
-applying the deck's rules (source-blind consumer, activating description,
-structure / process / proof).
+**3. Back up any existing skills** so only DQX lands in the folder:
 
-> Each `SKILL.md` needs YAML **frontmatter** — `name` (= its folder name) + a
-> firing `description`, or the agent never loads it. Hint: paste
-> [`skill-authoring-deck.md`](skill-authoring-deck.md) in as the instructions and
-> let the agent build the DQX family from it.
+```bash
+mv ~/.agents/skills ~/.agents/skills.bak; mkdir -p ~/.agents/skills
+```
+
+**4. Build the family** into `~/.agents/skills/` — paste
+[`skill-authoring-deck.md`](skill-authoring-deck.md) in as the instructions. Each
+`SKILL.md` needs frontmatter: `name` (= its folder name) + a firing `description`.
 
 ---
 
 # Exercise 3 — test the skill
 
-**4. Test in a new chat** — only your skills + the wheel — ask:
+**5. Test in a new chat** — only your skills + the wheel — ask:
 
 ```text
 Using DQX, add quality checks to samples.nyctaxi.trips: flag rows where
@@ -155,11 +155,11 @@ that alone shows the skill works. Now actually run it →
 
 # Exercise 3 — run it, 2 ways
 
-**5a. Easy — Databricks notebook.** Paste the generated code into a notebook on
+**6a. Easy — Databricks notebook.** Paste the generated code into a notebook on
 your cluster and run it. Zero local setup — use this if Databricks Connect isn't
 working for you.
 
-**5b. Fully local — Databricks Connect.** On your laptop:
+**6b. Fully local — Databricks Connect.** On your laptop:
 
 - `pip install databricks-labs-dqx`
 - load the env + get Spark — see [`requirements.md`](requirements.md)
@@ -168,17 +168,19 @@ working for you.
 
 # Exercise 3 — ship to Genie Code
 
-**6. Zip your skills** (run from the folder that holds `.agents/`):
+**7. Zip your skills** — the folder holds only DQX now, so zip it all:
 
 ```bash
-(cd .agents/skills && zip -r ../../dqx-skills.zip .)
+(cd ~/.agents/skills && zip -r ~/dqx-skills.zip .)
 ```
 
-**7. Import** `dqx-skills.zip` into `.assistant/skills/` in Databricks —
+**8. Import** `dqx-skills.zip` into `.assistant/skills/` in Databricks —
 the workspace auto-extracts it.
 
-**8. Try it** — back in Genie Code, re-run the Exercise 1 prompt and watch your
+**9. Try it** — back in Genie Code, re-run the Exercise 1 prompt and watch your
 whole family drive it.
+
+> Done? Restore your other skills: `mv ~/.agents/skills.bak/* ~/.agents/skills/`
 
 ---
 
