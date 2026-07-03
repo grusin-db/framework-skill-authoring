@@ -155,9 +155,10 @@ for the files and flow:
 - [`workshop/skill-authoring-deck.md`](workshop/skill-authoring-deck.md) — a
   6-slide [Marp](https://marp.app/) deck: 3 theory slides + the same 3 points
   applied to DQX.
-- [`workshop/workshop-instructions.md`](workshop/workshop-instructions.md) — a
-  one-slide hands-on runbook: install the wheel, clone DQX, delete its shipped
-  `skills/`, rebuild, test with a source-blind agent, deploy to Genie Code.
+- [`workshop/exercises.md`](workshop/exercises.md) — the hands-on exercises:
+  (1) watch Genie Code fail at DQX with no skill, (2) drop in a tiny skill and
+  watch it get smart, (3) rebuild DQX's skill family from the wheel and deploy to
+  Genie Code.
 - [`workshop/testing-skills-with-subagents.md`](workshop/testing-skills-with-subagents.md) —
   a deck on proving a skill works: spawn source-blind sub-agents that must produce
   runnable code from the skill alone (rubric + execution gates).
