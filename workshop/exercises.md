@@ -15,7 +15,8 @@ paginate: true
 2. **Tiny skill** — watch it get smart
 3. **Real skill family** — build it properly
 
-> Demo data: `samples.nyctaxi.trips` — built into every Databricks workspace
+> **Where:** Ex 1–2 in **Genie Code** (browser); Ex 3 on your **laptop** (Cursor / Claude Code).
+> **Demo data:** `samples.nyctaxi.trips` — built into every Databricks workspace.
 
 ---
 
@@ -82,7 +83,8 @@ the source".
 
 # Exercise 3 — build a real skill family
 
-One slide helped, but it isn't a family. Build DQX's skills **from the code**.
+One slide helped, but it isn't a family. Build DQX's skills **from the code** —
+now **on your laptop**, in Cursor / Claude Code (not the browser).
 
 **1. Get the source as a ZIP** (not `git` — history lets the agent cheat):
 
@@ -92,8 +94,9 @@ curl -L https://github.com/databrickslabs/dqx/archive/refs/heads/main.zip -o dqx
 
 **2. Delete its `skills/` folder** — that's the answer key.
 
-**3. Build it yourself** into `.agents/skills/`, applying the deck's rules
-(source-blind consumer, activating description, structure / process / proof).
+**3. Build it yourself** into `.agents/skills/` (your local agent's skills folder),
+applying the deck's rules (source-blind consumer, activating description,
+structure / process / proof).
 
 > Hint: paste [`skill-authoring-deck.md`](skill-authoring-deck.md) in as the
 > instructions and let the agent build the DQX family from it.
@@ -117,9 +120,15 @@ fare_amount <= 0, drop rows where trip_distance < 0, split good vs bad, run it.
 
 → real, runnable DQX — never asks for the source.
 
-**6. Deploy** — copy the skill folders to `.assistant/skills/` in Genie Code.
+**6. Deploy** — zip the skills, then upload to the workspace (it auto-extracts):
 
-**7. Try it** — re-run the Exercise 1 prompt and watch your family drive it.
+```bash
+(cd .agents/skills && zip -r ../../dqx-skills.zip .)
+```
+
+In Databricks, **import** `dqx-skills.zip` into `.assistant/skills/`.
+
+**7. Try it** — re-run the Exercise 1 prompt there and watch your family drive it.
 
 ---
 
