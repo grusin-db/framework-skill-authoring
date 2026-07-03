@@ -137,16 +137,21 @@ mv ~/.agents/skills ~/.agents/skills.bak; mkdir -p ~/.agents/skills
 
 # Exercise 3 — test the skill
 
-**5. Test in a new chat** — only your skills + the wheel — ask:
+**5. Test in a new chat** — only your skills + the wheel — paste the task **plus
+these constraints** so it can't cheat off the source you just unzipped:
 
 ```text
 Using DQX, add quality checks to samples.nyctaxi.trips: flag rows where
 fare_amount <= 0, drop rows where trip_distance < 0, split good vs bad, run it.
+
+Constraints (do not break):
+- Use ONLY the installed databricks-labs-dqx package and the dqx skills.
+- Do NOT open, read, list, grep, or search the DQX source, docs, examples,
+  tests, or any repository files.
+- Do NOT use the web. If the skills don't cover it, say so — never guess.
 ```
 
-> **No cheating:** you just unzipped the DQX source. Test from a **new window /
-> project without it**, or tell the agent **"skills + wheel only — don't look at
-> the DQX source, docs, examples, or any of its files."**
+> Belt and braces: also run it in a **new window / project without the DQX source**.
 
 **First win:** it writes **real, runnable DQX** and never reads the source code —
 that alone shows the skill works. Now actually run it →
