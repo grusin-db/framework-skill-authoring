@@ -10,6 +10,8 @@ How do you know a **skill** actually works?
 
 Spawn agents that only know the *problem* — and make them run real code.
 
+Similar idea here: https://agentskills.io/skill-creation/evaluating-skills
+
 ---
 
 ## The problem
