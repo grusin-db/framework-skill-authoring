@@ -62,9 +62,10 @@ Using DQX, add data quality checks to samples.nyctaxi.trips:
 
 # Exercise 2 — drop in a tiny skill
 
-**1. Create** `/Users/<you>/.assistant/skills/dqx/SKILL.md`.
+**1. Create the file** `/Users/<you>/.assistant/skills/dqx/SKILL.md`
+(swap `<you>` for your username).
 
-**2. Paste this frontmatter** (the `description` is what makes it fire):
+**2. Paste this in** — it's the whole skill (frontmatter + body):
 
 ````text
 ---
@@ -75,17 +76,15 @@ description: >-
   splitting good vs bad rows.
 ---
 
-Example usage of DQX. If you hit a "package not available" error, run
-`pip install databricks-labs-dqx`.
+If you hit a "package not available" error, run `pip install databricks-labs-dqx`.
 
 ```python
-import yaml
-...
+# paste the code from "Practice 1 — Source-blind, with DQX" here
 ```
 ````
 
-**3. Below it, paste the DQX code** from **"Practice 1 — Source-blind, with DQX"**
-in [`skill-authoring-deck.md`](skill-authoring-deck.md).
+**3. Replace that comment** with the code from **"Practice 1 — Source-blind, with
+DQX"** in [`skill-authoring-deck.md`](skill-authoring-deck.md).
 
 ---
 
@@ -94,9 +93,20 @@ in [`skill-authoring-deck.md`](skill-authoring-deck.md).
 **4. Clear the skill cache** — open a **new chat** *and* **refresh the browser**
 (Genie Code caches loaded skills per session).
 
-**5. Re-run the exact same prompt** from Exercise 1.
+**5. Re-run the exact same prompt:**
 
-> **Now it's much smarter:** real DQX calls, runnable code, no "show me the source".
+```text
+Using DQX, add data quality checks to samples.nyctaxi.trips:
+- drop rows where trip_distance < 0 or fare_amount < 0
+- split good vs bad rows
+- then run it
+```
+
+In the thinking you should now see **"Read dqx skill"** — that means it fired.
+Result: real DQX calls and runnable code.
+
+> Notice the **follow-up hints** it now suggests — add more checks, tune
+> criticality, save checks to a table — it actually understands DQX.
 
 ---
 
@@ -111,7 +121,8 @@ now **on your laptop**, in Cursor / Claude Code (not the browser).
 curl -L https://github.com/databrickslabs/dqx/archive/refs/heads/main.zip -o dqx.zip && unzip dqx.zip
 ```
 
-**2. Delete its `skills/` folder** — that's the answer key.
+**2. Delete the `skills/` folder** inside the unzipped repo — that's the answer
+key the agent could copy from.
 
 **3. Build it yourself** into `.agents/skills/` (your local agent's skills folder),
 applying the deck's rules (source-blind consumer, activating description,
@@ -124,32 +135,50 @@ structure / process / proof).
 
 ---
 
-# Exercise 3 — run & ship it
+# Exercise 3 — test the skill
 
-**4. Set up to run** (only now you need it):
-
-- `pip install databricks-labs-dqx`
-- Spark via Databricks Connect — see [`requirements.md`](requirements.md)
-- *No Spark, no DQX run.*
-
-**5. Test** — fresh agent, **only your skills + the wheel**. Ask:
+**4. Test in a new chat** — only your skills + the wheel — ask:
 
 ```text
 Using DQX, add quality checks to samples.nyctaxi.trips: flag rows where
 fare_amount <= 0, drop rows where trip_distance < 0, split good vs bad, run it.
 ```
 
-→ real, runnable DQX — never asks for the source.
+> **No cheating:** you just unzipped the DQX source. Test from a **new window /
+> project without it**, or tell the agent **"skills + wheel only — don't look at
+> the DQX source, docs, examples, or any of its files."**
 
-**6. Deploy** — zip the skills, then upload to the workspace (it auto-extracts):
+**First win:** it writes **real, runnable DQX** and never reads the source code —
+that alone shows the skill works. Now actually run it →
+
+---
+
+# Exercise 3 — run it, 2 ways
+
+**5a. Easy — Databricks notebook.** Paste the generated code into a notebook on
+your cluster and run it. Zero local setup — use this if Databricks Connect isn't
+working for you.
+
+**5b. Fully local — Databricks Connect.** On your laptop:
+
+- `pip install databricks-labs-dqx`
+- load the env + get Spark — see [`requirements.md`](requirements.md)
+
+---
+
+# Exercise 3 — ship to Genie Code
+
+**6. Zip your skills** (run from the folder that holds `.agents/`):
 
 ```bash
 (cd .agents/skills && zip -r ../../dqx-skills.zip .)
 ```
 
-In Databricks, **import** `dqx-skills.zip` into `.assistant/skills/`.
+**7. Import** `dqx-skills.zip` into `.assistant/skills/` in Databricks —
+the workspace auto-extracts it.
 
-**7. Try it** — re-run the Exercise 1 prompt there and watch your family drive it.
+**8. Try it** — back in Genie Code, re-run the Exercise 1 prompt and watch your
+whole family drive it.
 
 ---
 
