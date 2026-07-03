@@ -62,22 +62,33 @@ Using DQX, add data quality checks to samples.nyctaxi.trips:
 
 # Exercise 2 — drop in a tiny skill
 
-**1. Create a skill file:**
+**1. Create** `/Users/<you>/.assistant/skills/dqx/SKILL.md`.
 
-```text
-/Users/<you>/.assistant/skills/dqx/SKILL.md
+**2. Paste this frontmatter** (the `description` is what makes it fire):
+
+```yaml
+---
+name: dqx
+description: >-
+  Data quality checks with DQX (databricks-labs-dqx) on Spark. Use when the user
+  asks about data quality, quality checks, data validation, profiling, or
+  splitting good vs bad rows.
+---
 ```
 
-**2. Fill it** — a firing description + the copy-pasteable DQX flow
-(load checks → `validate_checks` → apply & split).
+**3. Below it, paste the DQX code** from **"Practice 1 — Source-blind, with DQX"**
+in [`skill-authoring-deck.md`](skill-authoring-deck.md).
 
-> Grab the code from **"Practice 1 — Source-blind, with DQX"** in
-> [`skill-authoring-deck.md`](skill-authoring-deck.md).
+---
 
-**3. Clear the cache** — new chat **+** browser refresh (skills cache per session).
+# Exercise 2 — reload & retry
 
-**4. Re-run the same prompt** → now it's smart: real DQX, runnable, no "show me
-the source".
+**4. Clear the skill cache** — open a **new chat** *and* **refresh the browser**
+(Genie Code caches loaded skills per session).
+
+**5. Re-run the exact same prompt** from Exercise 1.
+
+> **Now it's much smarter:** real DQX calls, runnable code, no "show me the source".
 
 ---
 
@@ -98,8 +109,10 @@ curl -L https://github.com/databrickslabs/dqx/archive/refs/heads/main.zip -o dqx
 applying the deck's rules (source-blind consumer, activating description,
 structure / process / proof).
 
-> Hint: paste [`skill-authoring-deck.md`](skill-authoring-deck.md) in as the
-> instructions and let the agent build the DQX family from it.
+> Each `SKILL.md` needs YAML **frontmatter** — `name` (= its folder name) + a
+> firing `description`, or the agent never loads it. Hint: paste
+> [`skill-authoring-deck.md`](skill-authoring-deck.md) in as the instructions and
+> let the agent build the DQX family from it.
 
 ---
 
