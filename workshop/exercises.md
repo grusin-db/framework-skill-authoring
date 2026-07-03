@@ -144,12 +144,6 @@ these constraints** so it can't cheat off the source you just unzipped:
 Using DQX, add quality checks to samples.nyctaxi.trips: flag rows where
 fare_amount <= 0, drop rows where trip_distance < 0, split good vs bad, run it.
 
-Spark setup (skip if a `spark` session already exists, e.g. a Databricks
-notebook; skip the source line if your shell already loaded the env):
-- Load env from repo root: set -a; source .databricks/.databricks.env; set +a
-- Create Spark: from databricks.connect import DatabricksSession;
-  spark = DatabricksSession.builder.getOrCreate()
-
 Constraints (do not break):
 - Use ONLY the installed databricks-labs-dqx package and the dqx skills.
 - Do NOT open, read, list, grep, or search the DQX source, docs, examples,
@@ -170,19 +164,26 @@ that alone shows the skill works. Now actually run it →
 your cluster and run it. Zero local setup — use this if Databricks Connect isn't
 working for you.
 
-**6b. Fully local — Databricks Connect.** On your laptop:
+**6b. Fully local — Databricks Connect.** `pip install databricks-labs-dqx`, then
+**add this Spark setup to your prompt** so the agent creates a session (see
+[`requirements.md`](requirements.md)):
 
-- `pip install databricks-labs-dqx`
-- load the env + get Spark — see [`requirements.md`](requirements.md)
+```text
+Spark setup (skip the source line if your shell already loaded the env):
+- Load env from repo root: set -a; source .databricks/.databricks.env; set +a
+- Create Spark: from databricks.connect import DatabricksSession;
+  spark = DatabricksSession.builder.getOrCreate()
+```
 
 ---
 
 # Exercise 3 — ship to Genie Code
 
-**7. Zip your skills** — the folder holds only DQX now, so zip it all:
+**7. Zip your skills** — the folder holds only DQX now, so zip it all
+(`rm` first — `zip` *appends* to an existing archive):
 
 ```bash
-(cd ~/.agents/skills && zip -r ~/dqx-skills.zip .)
+rm -f ~/dqx-skills.zip; (cd ~/.agents/skills && zip -r ~/dqx-skills.zip .)
 ```
 
 **8. Import** `dqx-skills.zip` into `.assistant/skills/` in Databricks —
@@ -195,9 +196,29 @@ whole family drive it.
 
 ---
 
+# Exercise 4 — push it further (optional)
+
+Skill works? Stress it. Tell your agent to **add more checks** and **spawn a
+source-blind subagent per task**, then compare:
+
+```text
+Add more DQX checks for samples.nyctaxi.trips and prove each with its OWN
+source-blind subagent (only the dqx skills + the wheel — no source, no web):
+- uniqueness across (tpep_pickup_datetime, tpep_dropoff_datetime, pickup_zip, dropoff_zip)
+- pickup_zip and dropoff_zip are never null
+- fare_amount in [0, 500]; tpep_dropoff_datetime not before tpep_pickup_datetime
+- profile the table and auto-generate candidate rules
+Report per task: did it invent an API, did it stay source-blind, good/bad counts.
+```
+
+Every "I need the source", wrong function, or bad enum is a **gap in the skill** —
+fix the skill, not the prompt.
+
+---
+
 <!-- _class: lead -->
 
-# ...now do it at scale
+# ...now do it at scale (optional, but recommended :-)
 
 You built **one** family by hand. But every framework your teams touch —
 ingestion, orchestration, ML, governance — needs one.
