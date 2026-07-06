@@ -108,6 +108,7 @@ good_df, bad_df = dq_engine.apply_checks_by_metadata_and_split(df, checks)
 
 - open a **new chat** in Genie Code
 - **refresh** the browser page to empty skill cache
+  - copy url -> close page -> open page -> paste url
 
 **4. Re-run the exact same prompt:**
 
@@ -126,29 +127,74 @@ Result: real DQX calls and runnable code.
 
 ---
 
-# Exercise 3 — build a real skill family
+# Exercise 3 — set up the DQX repo
 
 > **→ Laptop** — Cursor / Claude Code
 
-**1. Get the source as a ZIP** of DQX (not `git` — history lets the agent cheat):
+**1. Download the source** as a ZIP (not `git` — history lets the agent cheat):
+
+Open a terminal, go to your home folder (`cd`), and run:
 
 ```bash
 curl -L https://github.com/databrickslabs/dqx/archive/refs/heads/main.zip -o dqx.zip && unzip dqx.zip
 ```
 
-or just go to `https://github.com/databrickslabs/dqx` -> click on **Code** -> click on **Download ZIP** and extract it
+A `dqx-main` folder will appear. Or go to `https://github.com/databrickslabs/dqx` → **Code** → **Download ZIP** and extract it.
 
-**2. Delete the `skills/` folder** in the unzipped repo — the answer key.
+**2. Open Cursor or Claude Code** from the `dqx-main` folder.
 
-**3. Back up any existing skills** so only DQX lands in the folder:
+**3. Delete the `skills/` folder** in the repo — that's the answer key.
+
+**4. Back up any existing skills** so only DQX lands in the folder:
 
 ```bash
 mv ~/.agents/skills ~/.agents/skills.bak; mkdir -p ~/.agents/skills
 ```
 
-**4. Build the family** into `~/.agents/skills/` — paste
-[`skill-authoring-deck.md`](skill-authoring-deck.md) in as the instructions. Each
-`SKILL.md` needs frontmatter: `name` (= its folder name) + a firing `description`.
+---
+
+# Exercise 3 — build the skill family
+
+In a new chat, paste this prompt — then append the lab instructions from
+[`skill-authoring-deck.md`](skill-authoring-deck.md) (**Theory 1** through
+**Practice 3**):
+
+```text
+Build the DQX skill family using the instructions below.
+
+DQX source is in this repo root. Use docs/, demos/, and src/ as references.
+Put the finished skills into skills/ next to docs/.
+
+====== instructions for the lab =======
+<paste skill-authoring-deck.md — Theory 1 through Practice 3>
+```
+
+**Skim `skills/` in the file tree** — fix gaps in chat if something's missing:
+
+```text
+skills/
+├── dqx/                       # router — tree, index, quickstart
+│   └── SKILL.md               # frontmatter: name + description
+├── dqx-define-checks/         # author rules (YAML / Python)
+│   └── SKILL.md
+├── dqx-apply-checks/          # run checks, split good vs bad
+│   └── SKILL.md
+├── dqx-profile-and-generate/  # profile data, suggest rules
+│   └── SKILL.md
+└── dqx-storage/               # load / save checks
+    └── SKILL.md
+```
+
+Each `SKILL.md`: copy-pasteable examples, no `src/` paths.
+
+When it looks right, copy the skills into your agent folder (run from `dqx-main`):
+(This will make it visible to all agents on your laptop)
+
+```bash
+rm -rf ~/.agents/skills
+cp -r skills ~/.agents/skills
+ls ~/.agents/skills
+```
 
 ---
 
@@ -156,7 +202,7 @@ mv ~/.agents/skills ~/.agents/skills.bak; mkdir -p ~/.agents/skills
 
 **5. Test in a new chat**
 - Open new agent in **new** Cursor/Claude Code. 
-- Make sure that dqx code is not visible from there.
+- Make sure that dqx code is not visible from there. Just use some other folder.
 
 ```text
 Using DQX, add quality checks to samples.nyctaxi.trips: flag rows where
