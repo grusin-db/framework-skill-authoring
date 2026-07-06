@@ -150,8 +150,9 @@ from only the installed wheel, using [DQX](https://github.com/databrickslabs/dqx
 for the files and flow:
 
 - [`workshop/requirements.md`](workshop/requirements.md) — what to prepare
-  **before** the workshop: a laptop, an agent (Cursor / Claude Code), a Databricks
-  workspace, and the Spark / Databricks Connect setup.
+  **before** the workshop: a laptop, an agent (Cursor / Claude Code), and a
+  Databricks workspace. Local Databricks Connect is optional; a notebook is
+  enough to run generated code.
 - [`workshop/skill-authoring-deck.md`](workshop/skill-authoring-deck.md) — a
   6-slide [Marp](https://marp.app/) deck: 3 theory slides + the same 3 points
   applied to DQX.

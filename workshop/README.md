@@ -8,7 +8,7 @@ installed wheel**, using [DQX](https://github.com/databrickslabs/dqx)
 
 | File | What it is | When it's used |
 | --- | --- | --- |
-| [`requirements.md`](requirements.md) | Setup everyone should prepare **before** the workshop (laptop, an agent like Cursor/Claude Code, a Databricks workspace, and the Spark/Databricks Connect setup). | Send ahead of time so people arrive ready. |
+| [`requirements.md`](requirements.md) | Setup everyone should prepare **before** the workshop (laptop, an agent like Cursor/Claude Code, a Databricks workspace). Local Databricks Connect is **optional** — a notebook is enough to run code. | Send ahead of time so people arrive ready. |
 | [`skill-authoring-deck.md`](skill-authoring-deck.md) | The **theory + practice** deck — how to author a skill (source-blind consumer, activating description, structure/process/proof), applied to DQX. | Presented first, ~10 minutes. |
 | [`exercises.md`](exercises.md) | The **hands-on exercises** deck: (1) watch Genie Code fail at DQX with no skill, (2) drop in a tiny skill and watch it get smart, (3) build a real skill family from the wheel. | Kept on screen the whole time while people work hands-on. |
 | [`testing-skills-with-subagents.md`](testing-skills-with-subagents.md) | A deck on **how to prove a skill works**: spawn source-blind sub-agents that must produce runnable code from the skill alone (rubric + execution gates). | The "test" step — how to validate what you built. |
@@ -16,7 +16,8 @@ installed wheel**, using [DQX](https://github.com/databrickslabs/dqx)
 ## Flow
 
 1. **Before** — attendees complete [`requirements.md`](requirements.md) so their
-   laptop, agent, and Databricks workspace are ready.
+   laptop, agent, and Databricks workspace are ready. Notebook-based testing is
+   the default; Databricks Connect is optional for local runs.
 2. **Theory + practice (~10 min)** — present
    [`skill-authoring-deck.md`](skill-authoring-deck.md).
 3. **Hands-on** — put [`exercises.md`](exercises.md) on screen and work through

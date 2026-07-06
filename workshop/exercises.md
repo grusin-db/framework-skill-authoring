@@ -11,11 +11,11 @@ paginate: true
 
 ### From "DQX? never heard of it" to a real skill family
 
-1. **No skill** — watch Genie Code fail at DQX
+1. **No skill** — watch Genie Code fail at DQX (or burn tokens trying to learn it)
 2. **Tiny skill** — watch it get smart
 3. **Real skill family** — build it properly
 
-> **Where:** Ex 1–2 in **Genie Code** (browser); Ex 3 on your **laptop** (Cursor / Claude Code).
+> **Where:** Ex 1–2 in **Genie Code** (browser); Ex 3 on your **laptop** (Cursor / Claude Code) and **Genie Code**.
 > **Demo data:** `samples.nyctaxi.trips` — built into every Databricks workspace.
 
 ---
@@ -35,7 +35,7 @@ Log into your **Databricks workspace** → open **Genie Code**.
 base environment).
 
 > Bonus: skip the install, reset the session, and ask Genie Code to set DQX up
-> itself — sometimes it figures it out. :)
+> itself — sometimes it figures it out :)
 
 ---
 
@@ -54,7 +54,8 @@ Using DQX, add data quality checks to samples.nyctaxi.trips:
 
 - invent classes / functions that don't exist,
 - guess the check YAML and throw at runtime,
-- or ask you to point it at the source.
+- or start **inspecting package, file by file, burning tokens**...
+  - that's a new feature in **Genie Code**
 
 > That gap is exactly what a skill fills.
 
@@ -79,21 +80,43 @@ description: >-
 If you hit a "package not available" error, run `pip install databricks-labs-dqx`.
 
 ```python
-# paste the code from "Practice 1 — Source-blind, with DQX" here
+import yaml
+from databricks.sdk import WorkspaceClient
+from databricks.labs.dqx.engine import DQEngine
+
+df = spark.table("<catalog>.<schema>.transactions")   # placeholder input
+
+checks = yaml.safe_load("""
+- criticality: error             # error = quarantine, warn = flag only
+  check:
+    function: is_not_less_than   # single bound -> NOT is_in_range
+    arguments:
+      column: price
+      limit: 0
+""")
+
+status = DQEngine.validate_checks(checks)              # validate first
+assert not status.has_errors, status.errors
+
+dq_engine = DQEngine(WorkspaceClient())
+good_df, bad_df = dq_engine.apply_checks_by_metadata_and_split(df, checks)
 ```
 ````
-
-**3. Replace that comment** with the code from **"Practice 1 — Source-blind, with
-DQX"** in [`skill-authoring-deck.md`](skill-authoring-deck.md).
 
 ---
 
 # Exercise 2 — reload & retry
 
-**4. Clear the skill cache** — open a **new chat** *and* **refresh the browser**
-(Genie Code caches loaded skills per session).
+**3. Clear the skill cache**
 
-**5. Re-run the exact same prompt:**
+- open a **new chat** in Genie Code
+- **refresh** the browser page
+- Reminder: **refresh** the browser page
+- Reminder: **refresh** the browser page
+
+(Refresh only once, Genie Code caches skills in browser session cache)
+
+**4. Re-run the exact same prompt:**
 
 ```text
 Using DQX, add data quality checks to samples.nyctaxi.trips:
@@ -112,14 +135,16 @@ Result: real DQX calls and runnable code.
 
 # Exercise 3 — build a real skill family
 
-Not a family yet. Build DQX's skills **from the code**, on your **laptop**
+Build DQX's skills **from the code**, on your **laptop**
 (Cursor / Claude Code, not the browser).
 
-**1. Get the source as a ZIP** (not `git` — history lets the agent cheat):
+**1. Get the source as a ZIP** of DQX (not `git` — history lets the agent cheat):
 
 ```bash
 curl -L https://github.com/databrickslabs/dqx/archive/refs/heads/main.zip -o dqx.zip && unzip dqx.zip
 ```
+
+or just go to `https://github.com/databrickslabs/dqx` -> click on **Code** -> click on **Download ZIP** and extract it
 
 **2. Delete the `skills/` folder** in the unzipped repo — the answer key.
 
@@ -137,8 +162,8 @@ mv ~/.agents/skills ~/.agents/skills.bak; mkdir -p ~/.agents/skills
 
 # Exercise 3 — test the skill
 
-**5. Test in a new chat** — only your skills + the wheel — paste the task **plus
-these constraints** so it can't cheat off the source you just unzipped:
+**5. Test in a new chat**
+- Open new agent/chat in new Cursor/Claude Code
 
 ```text
 Using DQX, add quality checks to samples.nyctaxi.trips: flag rows where
@@ -149,31 +174,21 @@ Constraints (do not break):
 - Do NOT open, read, list, grep, or search the DQX source, docs, examples,
   tests, or any repository files.
 - Do NOT use the web. If the skills don't cover it, say so — never guess.
+
+Generate code only. Don't run.
 ```
 
-> Belt and braces: also run it in a **new window / project without the DQX source**.
-
-**First win:** it writes **real, runnable DQX** and never reads the source code —
-that alone shows the skill works. Now actually run it →
+**First win:** it writes **real, runnable DQX** from your local skills!
 
 ---
 
-# Exercise 3 — run it, 2 ways
+# Exercise 3 — run it
 
-**6a. Easy — Databricks notebook.** Paste the generated code into a notebook on
-your cluster and run it. Zero local setup — use this if Databricks Connect isn't
-working for you.
+**6. Databricks notebook** 
 
-**6b. Fully local — Databricks Connect.** `pip install databricks-labs-dqx`, then
-**add this Spark setup to your prompt** so the agent creates a session (see
-[`requirements.md`](requirements.md)):
-
-```text
-Spark setup (skip the source line if your shell already loaded the env):
-- Load env from repo root: set -a; source .databricks/.databricks.env; set +a
-- Create Spark: from databricks.connect import DatabricksSession;
-  spark = DatabricksSession.builder.getOrCreate()
-```
+- Open new notebook
+- Install dqx on the session: `%pip install databricks-labs-dqx`
+- Copy and paste the code from the local agent's chat
 
 ---
 
@@ -187,7 +202,9 @@ rm -f ~/dqx-skills.zip; (cd ~/.agents/skills && zip -r ~/dqx-skills.zip .)
 ```
 
 **8. Import** `dqx-skills.zip` into `.assistant/skills/` in Databricks —
-the workspace auto-extracts it.
+the workspace auto-extracts it. **Delete the tiny `dqx` skill from Exercise 2
+first** (remove `/Users/<you>/.assistant/skills/dqx/`) so it doesn't clash with
+the imported family.
 
 **9. Try it** — back in Genie Code, re-run the Exercise 1 prompt and watch your
 whole family drive it.
@@ -218,7 +235,7 @@ fix the skill, not the prompt.
 
 <!-- _class: lead -->
 
-# ...now do it at scale (optional, but recommended :-)
+# ...now do it at scale (optional)
 
 You built **one** family by hand. But every framework your teams touch —
 ingestion, orchestration, ML, governance — needs one.
