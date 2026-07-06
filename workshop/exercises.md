@@ -15,24 +15,7 @@ paginate: true
 2. **Tiny skill** — watch it get smart
 3. **Real skill family** — build it properly
 
-> **Where:** **Genie Code** (Ex 1–2) → **laptop** (Ex 3 build) → **notebook** (run) → **Genie Code** (ship)
 > **Demo data:** `samples.nyctaxi.trips` — built into every Databricks workspace.
-
----
-
-# Setup — a clean Genie Code
-
-Log into your **Databricks workspace** → open **Genie Code**.
-
-**Start from zero skills.** Confirm both folders are empty:
-
-- User skills — `/Users/<you>/.assistant/skills/`
-- Workspace skills — `Workspace/.assistant/skills/`
-
-> Anything there? Move it aside so it can't skew the demo.
-
-**DQX on the compute:** `pip install databricks-labs-dqx` (cluster library or
-base environment).
 
 ---
 

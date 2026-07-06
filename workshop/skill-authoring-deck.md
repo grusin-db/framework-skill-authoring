@@ -8,7 +8,7 @@ paginate: true
 
 # How to make a Skill for your framework
 
-## Theory 1 - Write for the source-blind consumer
+# Theory 1 - Write for the source-blind consumer
 
 Target: a coding agent in **Databricks Genie Code** with your package installed
 but **no repo, no docs, no internet**.
