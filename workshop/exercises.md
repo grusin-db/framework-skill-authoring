@@ -15,7 +15,7 @@ paginate: true
 2. **Tiny skill** — watch it get smart
 3. **Real skill family** — build it properly
 
-> **Where:** Ex 1–2 in **Genie Code** (browser); Ex 3 on your **laptop** (Cursor / Claude Code) and **Genie Code**.
+> **Where:** **Genie Code** (Ex 1–2) → **laptop** (Ex 3 build) → **notebook** (run) → **Genie Code** (ship)
 > **Demo data:** `samples.nyctaxi.trips` — built into every Databricks workspace.
 
 ---
@@ -33,9 +33,6 @@ Log into your **Databricks workspace** → open **Genie Code**.
 
 **DQX on the compute:** `pip install databricks-labs-dqx` (cluster library or
 base environment).
-
-> Bonus: skip the install, reset the session, and ask Genie Code to set DQX up
-> itself — sometimes it figures it out :)
 
 ---
 
@@ -64,7 +61,7 @@ Using DQX, add data quality checks to samples.nyctaxi.trips:
 # Exercise 2 — drop in a tiny skill
 
 **1. Create the file** `/Users/<you>/.assistant/skills/dqx/SKILL.md`
-(swap `<you>` for your username).
+(workspace path — not your laptop; swap `<you>` for your username).
 
 **2. Paste this in** — it's the whole skill (frontmatter + body):
 
@@ -110,11 +107,7 @@ good_df, bad_df = dq_engine.apply_checks_by_metadata_and_split(df, checks)
 **3. Clear the skill cache**
 
 - open a **new chat** in Genie Code
-- **refresh** the browser page
-- Reminder: **refresh** the browser page
-- Reminder: **refresh** the browser page
-
-(Refresh only once, Genie Code caches skills in browser session cache)
+- **refresh** the browser page to empty skill cache
 
 **4. Re-run the exact same prompt:**
 
@@ -135,8 +128,7 @@ Result: real DQX calls and runnable code.
 
 # Exercise 3 — build a real skill family
 
-Build DQX's skills **from the code**, on your **laptop**
-(Cursor / Claude Code, not the browser).
+> **→ Laptop** — Cursor / Claude Code
 
 **1. Get the source as a ZIP** of DQX (not `git` — history lets the agent cheat):
 
@@ -163,7 +155,8 @@ mv ~/.agents/skills ~/.agents/skills.bak; mkdir -p ~/.agents/skills
 # Exercise 3 — test the skill
 
 **5. Test in a new chat**
-- Open new agent/chat in new Cursor/Claude Code
+- Open new agent in **new** Cursor/Claude Code. 
+- Make sure that dqx code is not visible from there.
 
 ```text
 Using DQX, add quality checks to samples.nyctaxi.trips: flag rows where
@@ -184,7 +177,9 @@ Generate code only. Don't run.
 
 # Exercise 3 — run it
 
-**6. Databricks notebook** 
+> **→ Notebook** — paste & run generated code
+
+**6. Databricks notebook**
 
 - Open new notebook
 - Install dqx on the session: `%pip install databricks-labs-dqx`
@@ -193,6 +188,8 @@ Generate code only. Don't run.
 ---
 
 # Exercise 3 — ship to Genie Code
+
+> **→ Genie Code** — import zip, delete Ex 2 `dqx` skill, retry
 
 **7. Zip your skills** — the folder holds only DQX now, so zip it all
 (`rm` first — `zip` *appends* to an existing archive):
@@ -206,7 +203,7 @@ the workspace auto-extracts it. **Delete the tiny `dqx` skill from Exercise 2
 first** (remove `/Users/<you>/.assistant/skills/dqx/`) so it doesn't clash with
 the imported family.
 
-**9. Try it** — back in Genie Code, re-run the Exercise 1 prompt and watch your
+**9. Try it** — re-run the Exercise 1 prompt and watch your
 whole family drive it.
 
 > Done? Restore your other skills: `mv ~/.agents/skills.bak/* ~/.agents/skills/`
