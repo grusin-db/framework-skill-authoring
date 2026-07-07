@@ -4,6 +4,17 @@ Hands-on workshop: rebuild a real library's Agent Skills family from **only the
 installed wheel**, using [DQX](https://github.com/databrickslabs/dqx)
 (`databricks-labs-dqx`) as the demo framework.
 
+**A workshop in a repo is usually about that repo. This one isn't.**
+
+The point is learning how to build a skill system **from scratch** — by hand, so
+you understand every piece. Only the **last exercise** reaches for this repo's
+[`framework-skill-authoring`](../README.md) meta-skill, which then does the whole
+thing for you.
+
+> Give a person a fish and they eat for a day; teach them to fish and they eat
+> for a lifetime.
+
+
 ## Files
 
 | File | What it is | When it's used |
@@ -20,9 +31,10 @@ installed wheel**, using [DQX](https://github.com/databrickslabs/dqx)
    the default; Databricks Connect is optional for local runs.
 2. **Theory + practice (~10 min)** — present
    [`skill-authoring-deck.md`](skill-authoring-deck.md).
-3. **Hands-on** — put [`exercises.md`](exercises.md) on screen and work through
-   the three exercises: watch Genie Code fail at DQX, drop in a tiny skill, then
-   build a real skill family.
-4. **Test & deploy** — validate the skill with source-blind sub-agents
-   ([`testing-skills-with-subagents.md`](testing-skills-with-subagents.md)), then
-   deploy it to Genie Code.
+3. **Hands-on (~35 min)** — put [`exercises.md`](exercises.md) on screen and work
+   through the **core Exercises 1–3**: watch Genie Code fail at DQX, drop in a tiny
+   skill, then build a real skill family. **Go exercise by exercise as a group** —
+   present each one, let everyone do it, then **pause and wait until the whole room
+   has finished before moving to the next.** Exercises 4–5 are optional take-home
+   extras. Use the per-exercise time estimates to pace the room.
+

@@ -3,11 +3,19 @@
 The exercises below take you from "DQX? never heard of it" to a real skill
 family:
 
-1. **[No skill](#exercise-1--no-skill-it-fails)** — watch Genie Code fail at DQX (or burn tokens trying to learn it)
-2. **[Tiny skill](#exercise-2--drop-in-a-tiny-skill)** — watch it get smart
-3. **[Real skill family](#exercise-3--set-up-the-dqx-repo)** — build it properly
-4. **[Push it further](#exercise-4--push-it-further-optional)** (optional) — stress it with source-blind subagents
-5. **[Do it at scale](#exercise-5--do-it-at-scale-optional)** (optional) — automate whole families
+**Core workshop = Exercises 1–3, ~30 min total.** Exercises 4–5 are optional
+take-home extras — do them later if you want to go deeper.
+
+1. **[No skill](#exercise-1--no-skill-it-fails)** *(~3 min)* — watch Genie Code fail at DQX (or burn tokens trying to learn it)
+2. **[Tiny skill](#exercise-2--drop-in-a-tiny-skill)** *(~7 min)* — watch it get smart
+3. **[Real skill family](#exercise-3--set-up-the-dqx-repo)** *(~20 min)* — build it properly
+4. **[Push it further](#exercise-4--push-it-further-optional)** *(optional, take-home)* — stress it with source-blind subagents
+5. **[Do it at scale](#exercise-5--do-it-at-scale-optional)** *(optional, take-home)* — automate whole families
+
+> **Pacing (group workshop):** with only ~35 min, keep tight. Go exercise by
+> exercise: everyone does one, then we **pause and wait for the whole room**
+> before starting the next. Times include tool switching (Genie Code ↔ laptop
+> agent ↔ notebook) and copy-pasting, which is where the minutes really go.
 
 > **Demo data:** `samples.nyctaxi.trips` — built into every Databricks workspace.
 
@@ -17,7 +25,7 @@ family:
 > **Databricks workspace:** use any workspace — but prefer your personal one if
 > you have it.
 
-## Exercise 1 — no skill, it fails
+## Exercise 1 — no skill, it fails *(~3 min)*
 
 In **Genie Code** (Agent mode), with **no DQX skill installed**, ask:
 
@@ -28,7 +36,7 @@ Using DQX, add data quality checks to samples.nyctaxi.trips:
 - then run it
 ```
 
-**It fails in many ways.**
+**It fails in many ways:**
 
 - invent classes / functions that don't exist,
 - guess the check YAML and throw at runtime,
@@ -38,7 +46,7 @@ Using DQX, add data quality checks to samples.nyctaxi.trips:
 
 > That gap is exactly what a skill fills.
 
-## Exercise 2 — drop in a tiny skill
+## Exercise 2 — drop in a tiny skill *(~7 min)*
 
 **1. Create the file** `/Users/<you>/.assistant/skills/dqx/SKILL.md`
 (workspace path — not your laptop; swap `<you>` for your username).
@@ -103,7 +111,7 @@ Result: real DQX calls and runnable code.
 > Notice the **follow-up hints** it now suggests — add more checks, tune
 > criticality, save checks to a table — it actually understands DQX.
 
-## Exercise 3 — set up the DQX repo
+## Exercise 3 — set up the DQX repo *(~20 min)*
 
 > **→ Laptop** — Cursor / Claude Code
 
@@ -222,7 +230,7 @@ whole family drive it.
 
 > Done? Restore your other skills: `mv ~/.agents/skills.bak/* ~/.agents/skills/`
 
-## Exercise 4 — push it further (optional)
+## Exercise 4 — push it further (optional, take-home)
 
 Skill works? Stress it. Tell your agent to **add more checks** and **spawn a
 source-blind subagent per task**, then compare:
@@ -240,7 +248,7 @@ Report per task: did it invent an API, did it stay source-blind, good/bad counts
 Every "I need the source", wrong function, or bad enum is a **gap in the skill** —
 fix the skill, not the prompt.
 
-## Exercise 5 — do it at scale (optional)
+## Exercise 5 — do it at scale (optional, take-home)
 
 You built **one** family by hand. But every framework your teams touch —
 ingestion, orchestration, ML, governance — needs one.
