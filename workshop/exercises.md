@@ -12,7 +12,7 @@ take-home extras — do them later if you want to go deeper.
 4. **[Push it further](#exercise-4--push-it-further-optional)** *(optional, take-home)* — stress it with source-blind subagents
 5. **[Do it at scale](#exercise-5--do-it-at-scale-optional)** *(optional, take-home)* — automate whole families
 
-> **Pacing (group workshop):** with only ~35 min, keep tight. Go exercise by
+> **Pacing (group workshop):** with only ~30 min, keep tight. Go exercise by
 > exercise: everyone does one, then we **pause and wait for the whole room**
 > before starting the next. Times include tool switching (Genie Code ↔ laptop
 > agent ↔ notebook) and copy-pasting, which is where the minutes really go.
