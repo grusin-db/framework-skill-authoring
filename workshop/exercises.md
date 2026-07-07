@@ -14,6 +14,9 @@ family:
 > **Prerequisite (all exercises):** `databricks-labs-dqx` is installed on your
 > cluster / compute.
 
+> **Databricks workspace:** use any workspace — but prefer your personal one if
+> you have it.
+
 ## Exercise 1 — no skill, it fails
 
 In **Genie Code** (Agent mode), with **no DQX skill installed**, ask:
