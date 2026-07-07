@@ -28,12 +28,13 @@ Using DQX, add data quality checks to samples.nyctaxi.trips:
 - then run it
 ```
 
-**It fails.** With no idea what DQX is, it will:
+**It fails in many ways.**
 
 - invent classes / functions that don't exist,
 - guess the check YAML and throw at runtime,
-- or start **inspecting package, file by file, burning tokens**...
-  - that's a new feature in **Genie Code**
+- start **inspecting the package, file by file, burning tokens**
+  - that's a new feature in **Genie Code**,
+- or, on a SOTA model like Sonnet 5, hallucinate *nearly*-correct code — which is worse, because it looks right.
 
 > That gap is exactly what a skill fills.
 
