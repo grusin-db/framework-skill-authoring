@@ -10,6 +10,7 @@ family:
 5. **[Do it at scale](#exercise-5--do-it-at-scale-optional)** (optional) — automate whole families
 
 > **Demo data:** `samples.nyctaxi.trips` — built into every Databricks workspace.
+
 > **Prerequisite (all exercises):** `databricks-labs-dqx` is installed on your
 > cluster / compute.
 
