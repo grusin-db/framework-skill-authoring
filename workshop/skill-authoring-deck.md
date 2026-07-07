@@ -54,12 +54,15 @@ a wrong enum, or "I need to see the source" is a gap **in the skill**.
 
 ## Practice 1 - Source-blind, with DQX
 
-Demo library: **`databricks-labs-dqx`** (databricks data quality framework).
+**Scope today:** design a skill for the **Genie Code audience**, where the
+consumer agent has **only the wheel** (`databricks-labs-dqx`) - no repo, no docs,
+no internet.
 
 > DQX is a data quality framework for Apache Spark that enables you to define, monitor, and address data quality issues in your Python-based data pipelines.
 
-The consumer only has the wheel, so the skill inlines the real flow - **load
-the checks, validate, then apply** - never pointing at the repo:
+**Example flow:** load checks -> validate their structure -> apply the checks.
+
+The agent must be able to build this from the skill alone.
 
 ```python
 import yaml
@@ -88,6 +91,8 @@ good_df, bad_df = dq_engine.apply_checks_by_metadata_and_split(df, checks)
 
 Apply each rule to the DQX skill:
 
+- **A description that fires:** "Data quality checks with DQX. Use when the user
+  asks about data quality, quality checks, data validation, or profiling."
 - **Use DQX's own primitives:** `check_funcs`, `DQRowRule` / `DQDatasetRule`,
   `DQEngine.validate_checks(checks)`, `DQProfiler` - do not hand-roll
   validation logic. DQX has it all.
@@ -95,10 +100,12 @@ Apply each rule to the DQX skill:
   and the `check_funcs` registry instead of guessing function names.
 - **Compose from config:** resolve workspace context from `WorkspaceClient()`;
   never hardcode a catalog or table name.
-- **A description that fires:** "Data quality checks with DQX. Use when the user
-  asks about data quality, quality checks, data validation, or profiling."
 
 ## Practice 3 - The DQX family you ship
+
+The exact split can deviate - this is an example. The fixed principle is a
+**clear cut between the router and one skill per capability**: `dqx` routes,
+each `dqx-<capability>` owns a single piece of functionality.
 
 ```text
 .assistant/skills/             # Genie Code loads skill folders from here
@@ -108,12 +115,3 @@ Apply each rule to the DQX skill:
 ├── dqx-profile-and-generate/  # profile data, suggest candidate rules
 └── dqx-storage/               # load / save checks (files, tables, volumes)
 ```
-
-**Prove it:** a fresh (sub) agent with only these skills + the wheel must handle
-*"drop rows where price < 0, split good vs bad"* with real DQX - no repo.
-
-Tell agent that looking at anything else than skills and .whl is considered cheating.
-
-**Deploy:** copy the folders to `.assistant/skills/`, install DQX on the compute.
-
-Now rebuild it live: delete DQX's shipped `skills/` - see the runbook.
