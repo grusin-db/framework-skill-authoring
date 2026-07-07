@@ -115,3 +115,7 @@ each `dqx-<capability>` owns a single piece of functionality.
 ├── dqx-profile-and-generate/  # profile data, suggest candidate rules
 └── dqx-storage/               # load / save checks (files, tables, volumes)
 ```
+
+---
+
+**Now go build it:** [`exercises.md`](exercises.md)
