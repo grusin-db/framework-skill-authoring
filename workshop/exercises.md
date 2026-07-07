@@ -1,10 +1,11 @@
 # Exercises
 
-From "DQX? never heard of it" to a real skill family:
+The exercises below take you from "DQX? never heard of it" to a real skill
+family, in three stages:
 
-1. **No skill** — watch Genie Code fail at DQX (or burn tokens trying to learn it)
-2. **Tiny skill** — watch it get smart
-3. **Real skill family** — build it properly
+1. **No skill** ([Ex 1](#exercise-1--no-skill-it-fails)) — watch Genie Code fail at DQX (or burn tokens trying to learn it)
+2. **Tiny skill** ([Ex 2](#exercise-2--drop-in-a-tiny-skill)) — watch it get smart
+3. **Real skill family** ([Ex 3](#exercise-3--set-up-the-dqx-repo), [Ex 4](#exercise-4--push-it-further-optional)) — build it properly
 
 > **Demo data:** `samples.nyctaxi.trips` — built into every Databricks workspace.
 
