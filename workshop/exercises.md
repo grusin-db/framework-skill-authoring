@@ -10,6 +10,8 @@ family:
 5. **[Do it at scale](#exercise-5--do-it-at-scale-optional)** (optional) — automate whole families
 
 > **Demo data:** `samples.nyctaxi.trips` — built into every Databricks workspace.
+> **Prerequisite (all exercises):** `databricks-labs-dqx` is installed on your
+> cluster / compute.
 
 ## Exercise 1 — no skill, it fails
 
@@ -191,7 +193,7 @@ Generate code only. Don't run.
 **6. Databricks notebook**
 
 - Open new notebook
-- Install dqx on the session: `%pip install databricks-labs-dqx`
+- DQX is already on the cluster (see prerequisite) — if not, `%pip install databricks-labs-dqx`
 - Copy and paste the code from the local agent's chat
 
 ### Ship to Genie Code
