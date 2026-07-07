@@ -1,17 +1,29 @@
 # Workshop
 
-Hands-on workshop: rebuild a real library's Agent Skills family from **only the
-installed wheel**, using [DQX](https://github.com/databrickslabs/dqx)
-(`databricks-labs-dqx`) as the demo framework.
+Hands-on workshop: build a real library's Agent Skills family **from its source
+code**, so that a **source-blind consumer with only the installed wheel** can use
+it. Uses [DQX](https://github.com/databrickslabs/dqx) (`databricks-labs-dqx`) as
+the demo framework.
+
+**A workshop in a repo is usually about that repo. This one isn't.**
+
+The point is learning how to build a skill system **from scratch** — by hand, so
+you understand every piece. Only the **last exercise** reaches for this repo's
+[`framework-skill-authoring`](../README.md) meta-skill, which then does the whole
+thing for you.
+
+> Give a person a fish and they eat for a day; teach them to fish and they eat
+> for a lifetime.
+
 
 ## Files
 
 | File | What it is | When it's used |
 | --- | --- | --- |
 | [`requirements.md`](requirements.md) | Setup everyone should prepare **before** the workshop (laptop, an agent like Cursor/Claude Code, a Databricks workspace). Local Databricks Connect is **optional** — a notebook is enough to run code. | Send ahead of time so people arrive ready. |
-| [`skill-authoring-deck.md`](skill-authoring-deck.md) | The **theory + practice** deck — how to author a skill (source-blind consumer, activating description, structure/process/proof), applied to DQX. | Presented first, ~10 minutes. |
-| [`exercises.md`](exercises.md) | The **hands-on exercises** deck: (1) watch Genie Code fail at DQX with no skill, (2) drop in a tiny skill and watch it get smart, (3) build a real skill family from the wheel. | Kept on screen the whole time while people work hands-on. |
-| [`testing-skills-with-subagents.md`](testing-skills-with-subagents.md) | A deck on **how to prove a skill works**: spawn source-blind sub-agents that must produce runnable code from the skill alone (rubric + execution gates). | The "test" step — how to validate what you built. |
+| [`skill-authoring-deck.md`](skill-authoring-deck.md) | **Theory + practice** — how to author a skill (source-blind consumer, activating description, structure/process/proof), applied to DQX. | Presented first, ~10 minutes. |
+| [`exercises.md`](exercises.md) | **Hands-on exercises**: (1) watch Genie Code fail at DQX with no skill, (2) drop in a tiny skill and watch it get smart, (3) build a real skill family from the source so a wheel-only consumer can use it. | Kept on screen the whole time while people work hands-on. |
+| [`testing-skills-with-subagents.md`](testing-skills-with-subagents.md) | **How to prove a skill works**: spawn source-blind sub-agents that must produce runnable code from the skill alone (rubric + execution gates). | The "test" step — how to validate what you built. |
 
 ## Flow
 
@@ -20,17 +32,10 @@ installed wheel**, using [DQX](https://github.com/databrickslabs/dqx)
    the default; Databricks Connect is optional for local runs.
 2. **Theory + practice (~10 min)** — present
    [`skill-authoring-deck.md`](skill-authoring-deck.md).
-3. **Hands-on** — put [`exercises.md`](exercises.md) on screen and work through
-   the three exercises: watch Genie Code fail at DQX, drop in a tiny skill, then
-   build a real skill family.
-4. **Test & deploy** — validate the skill with source-blind sub-agents
-   ([`testing-skills-with-subagents.md`](testing-skills-with-subagents.md)), then
-   deploy it to Genie Code.
+3. **Hands-on (~35 min)** — put [`exercises.md`](exercises.md) on screen and work
+   through the **core Exercises 1–3**: watch Genie Code fail at DQX, drop in a tiny
+   skill, then build a real skill family. **Go exercise by exercise as a group** —
+   present each one, let everyone do it, then **pause and wait until the whole room
+   has finished before moving to the next.** Exercises 4–5 are optional take-home
+   extras. Use the per-exercise time estimates to pace the room.
 
-## Rendering the decks
-
-All of these files are [Marp](https://marp.app/) slides. Render any of them to PDF:
-
-```bash
-npx @marp-team/marp-cli@latest workshop/skill-authoring-deck.md -o deck.pdf
-```

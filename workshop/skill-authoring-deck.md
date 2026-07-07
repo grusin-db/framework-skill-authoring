@@ -1,11 +1,3 @@
----
-marp: true
-theme: default
-paginate: true
----
-
-<!-- markdownlint-disable MD025 -->
-
 # How to make a Skill for your framework
 
 ## Theory 1 - Write for the source-blind consumer
@@ -23,9 +15,7 @@ but **no repo, no docs, no internet**.
 
 > If the agent ever needs to "go look at the source", the skill has failed.
 
----
-
-# Theory 2 - Get activated first, then be self-contained
+## Theory 2 - Get activated first, then be self-contained
 
 **The frontmatter `description` is THE most important line in the skill.**
 Get it wrong and the agent never loads the skill - nothing else you wrote
@@ -45,9 +35,7 @@ Once it loads, **everything the skill needs is inside the skill:**
   and load them on runtime
 - No external links to websites. Agents are trained not to open external "insecure" urls
 
----
-
-# Theory 3 - Structure, process, proof
+## Theory 3 - Structure, process, proof
 
 **Structure (the family):**
 
@@ -64,16 +52,17 @@ generate -> validate.
 agent with *only* the skills + the `.whl` runs each real task. An invented API,
 a wrong enum, or "I need to see the source" is a gap **in the skill**.
 
----
+## Practice 1 - Source-blind, with DQX
 
-# Practice 1 - Source-blind, with DQX
-
-Demo library: **`databricks-labs-dqx`** (databricks data quality framework).
+**Scope today:** design a skill for the **Genie Code audience**, where the
+consumer agent has **only the wheel** (`databricks-labs-dqx`) - no repo, no docs,
+no internet.
 
 > DQX is a data quality framework for Apache Spark that enables you to define, monitor, and address data quality issues in your Python-based data pipelines.
 
-The consumer only has the wheel, so the skill inlines the real flow - **load
-the checks, validate, then apply** - never pointing at the repo:
+**Example flow:** load checks -> validate their structure -> apply the checks.
+
+The agent must be able to build this from the skill alone.
 
 ```python
 import yaml
@@ -98,12 +87,12 @@ dq_engine = DQEngine(WorkspaceClient())
 good_df, bad_df = dq_engine.apply_checks_by_metadata_and_split(df, checks)
 ```
 
----
-
-# Practice 2 - The same rules, in the DQX skill
+## Practice 2 - The same rules, in the DQX skill
 
 Apply each rule to the DQX skill:
 
+- **A description that fires:** "Data quality checks with DQX. Use when the user
+  asks about data quality, quality checks, data validation, or profiling."
 - **Use DQX's own primitives:** `check_funcs`, `DQRowRule` / `DQDatasetRule`,
   `DQEngine.validate_checks(checks)`, `DQProfiler` - do not hand-roll
   validation logic. DQX has it all.
@@ -111,12 +100,12 @@ Apply each rule to the DQX skill:
   and the `check_funcs` registry instead of guessing function names.
 - **Compose from config:** resolve workspace context from `WorkspaceClient()`;
   never hardcode a catalog or table name.
-- **A description that fires:** "Data quality checks with DQX. Use when the user
-  asks about data quality, quality checks, data validation, or profiling."
 
----
+## Practice 3 - The DQX family you ship
 
-# Practice 3 - The DQX family you ship
+The exact split can deviate - this is an example. The fixed principle is a
+**clear cut between the router and one skill per capability**: `dqx` routes,
+each `dqx-<capability>` owns a single piece of functionality.
 
 ```text
 .assistant/skills/             # Genie Code loads skill folders from here
@@ -127,11 +116,6 @@ Apply each rule to the DQX skill:
 └── dqx-storage/               # load / save checks (files, tables, volumes)
 ```
 
-**Prove it:** a fresh (sub) agent with only these skills + the wheel must handle
-*"drop rows where price < 0, split good vs bad"* with real DQX - no repo.
+---
 
-Tell agent that looking at anything else than skills and .whl is considered cheating.
-
-**Deploy:** copy the folders to `.assistant/skills/`, install DQX on the compute.
-
-Now rebuild it live: delete DQX's shipped `skills/` - see the runbook.
+**Now go build it:** [`exercises.md`](exercises.md)

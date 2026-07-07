@@ -1,11 +1,3 @@
----
-marp: true
-theme: default
-paginate: true
----
-
-<!-- markdownlint-disable MD025 MD041 -->
-
 # Requirements
 
 **Bring (required):**
@@ -17,9 +9,7 @@ paginate: true
 **To run generated code:** paste it into a **Databricks notebook** on your
 cluster. That is enough for the workshop — zero local Spark setup.
 
----
-
-# Optional — run locally (Databricks Connect)
+## Optional — run locally (Databricks Connect)
 
 Want to run generated code from your laptop instead of a notebook? Set up
 **Databricks Connect** — no local Spark/Java; borrow Spark from a cluster.
@@ -37,9 +27,7 @@ uv pip install "databricks-connect==16.4.*"    # change 16.4 -> YOUR cluster's D
 Don't also install `pyspark` — it conflicts. No `uv`? On Mac:
 `brew install uv` (or `curl -LsSf https://astral.sh/uv/install.sh | sh`).
 
----
-
-# Optional — verify local Spark
+## Optional — verify local Spark
 
 **From the repo root**, load the env and verify in one shot:
 
@@ -58,7 +46,7 @@ from databricks.connect import DatabricksSession
 spark = DatabricksSession.builder.getOrCreate()       # runs on the cluster
 ```
 
-# Optional - prompt for usage of local spark
+## Optional — prompt for usage of local spark
 
 When prompting add this prompt to acomplish env injection
 

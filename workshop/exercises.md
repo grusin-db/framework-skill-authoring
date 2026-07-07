@@ -1,42 +1,31 @@
----
-marp: true
-theme: default
-paginate: true
----
-
-<!-- markdownlint-disable MD001 MD025 MD041 -->
-<!-- _class: lead -->
-
 # Exercises
 
-### From "DQX? never heard of it" to a real skill family
+The exercises below take you from "DQX? never heard of it" to a real skill
+family:
 
-1. **No skill** — watch Genie Code fail at DQX (or burn tokens trying to learn it)
-2. **Tiny skill** — watch it get smart
-3. **Real skill family** — build it properly
+**Core workshop = Exercises 1–3, ~30 min total.** Exercises 4–5 are optional
+take-home extras — do them later if you want to go deeper.
 
-> **Where:** **Genie Code** (Ex 1–2) → **laptop** (Ex 3 build) → **notebook** (run) → **Genie Code** (ship)
+1. **[No skill](#exercise-1--no-skill-it-fails)** *(~3 min)* — watch Genie Code fail at DQX (or burn tokens trying to learn it)
+2. **[Tiny skill](#exercise-2--drop-in-a-tiny-skill)** *(~7 min)* — watch it get smart
+3. **[Real skill family](#exercise-3--set-up-the-dqx-repo)** *(~20 min)* — build it properly
+4. **[Push it further](#exercise-4--push-it-further-optional)** *(optional, take-home)* — stress it with source-blind subagents
+5. **[Do it at scale](#exercise-5--do-it-at-scale-optional)** *(optional, take-home)* — automate whole families
+
+> **Pacing (group workshop):** with only ~30 min, keep tight. Go exercise by
+> exercise: everyone does one, then we **pause and wait for the whole room**
+> before starting the next. Times include tool switching (Genie Code ↔ laptop
+> agent ↔ notebook) and copy-pasting, which is where the minutes really go.
+
 > **Demo data:** `samples.nyctaxi.trips` — built into every Databricks workspace.
 
----
+> **Prerequisite (all exercises):** `databricks-labs-dqx` is installed on your
+> cluster / compute.
 
-# Setup — a clean Genie Code
+> **Databricks workspace:** use any workspace — but prefer your personal one if
+> you have it.
 
-Log into your **Databricks workspace** → open **Genie Code**.
-
-**Start from zero skills.** Confirm both folders are empty:
-
-- User skills — `/Users/<you>/.assistant/skills/`
-- Workspace skills — `Workspace/.assistant/skills/`
-
-> Anything there? Move it aside so it can't skew the demo.
-
-**DQX on the compute:** `pip install databricks-labs-dqx` (cluster library or
-base environment).
-
----
-
-# Exercise 1 — no skill, it fails
+## Exercise 1 — no skill, it fails *(~3 min)*
 
 In **Genie Code** (Agent mode), with **no DQX skill installed**, ask:
 
@@ -47,18 +36,17 @@ Using DQX, add data quality checks to samples.nyctaxi.trips:
 - then run it
 ```
 
-**It fails.** With no idea what DQX is, it will:
+**It fails in many ways:**
 
 - invent classes / functions that don't exist,
 - guess the check YAML and throw at runtime,
-- or start **inspecting package, file by file, burning tokens**...
-  - that's a new feature in **Genie Code**
+- start **inspecting the package, file by file, burning tokens**
+  - that's a new feature in **Genie Code**,
+- or, on a SOTA model like Sonnet 5, hallucinate *nearly*-correct code — which is worse, because it looks right.
 
 > That gap is exactly what a skill fills.
 
----
-
-# Exercise 2 — drop in a tiny skill
+## Exercise 2 — drop in a tiny skill *(~7 min)*
 
 **1. Create the file** `/Users/<you>/.assistant/skills/dqx/SKILL.md`
 (workspace path — not your laptop; swap `<you>` for your username).
@@ -100,9 +88,7 @@ good_df, bad_df = dq_engine.apply_checks_by_metadata_and_split(df, checks)
 ```
 ````
 
----
-
-# Exercise 2 — reload & retry
+### Reload & retry
 
 **3. Clear the skill cache**
 
@@ -125,9 +111,7 @@ Result: real DQX calls and runnable code.
 > Notice the **follow-up hints** it now suggests — add more checks, tune
 > criticality, save checks to a table — it actually understands DQX.
 
----
-
-# Exercise 3 — set up the DQX repo
+## Exercise 3 — set up the DQX repo *(~20 min)*
 
 > **→ Laptop** — Cursor / Claude Code
 
@@ -151,9 +135,7 @@ A `dqx-main` folder will appear. Or go to `https://github.com/databrickslabs/dqx
 mv ~/.agents/skills ~/.agents/skills.bak; mkdir -p ~/.agents/skills
 ```
 
----
-
-# Exercise 3 — build the skill family
+### Build the skill family
 
 In a new chat, paste this prompt — then append the lab instructions from
 [`skill-authoring-deck.md`](skill-authoring-deck.md) (**Theory 1** through
@@ -196,9 +178,7 @@ cp -r skills ~/.agents/skills
 ls ~/.agents/skills
 ```
 
----
-
-# Exercise 3 — test the skill
+### Test the skill
 
 **5. Test in a new chat**
 - Open new agent in **new** Cursor/Claude Code. 
@@ -219,21 +199,17 @@ Generate code only. Don't run.
 
 **First win:** it writes **real, runnable DQX** from your local skills!
 
----
-
-# Exercise 3 — run it
+### Run it
 
 > **→ Notebook** — paste & run generated code
 
 **6. Databricks notebook**
 
 - Open new notebook
-- Install dqx on the session: `%pip install databricks-labs-dqx`
+- DQX is already on the cluster (see prerequisite) — if not, `%pip install databricks-labs-dqx`
 - Copy and paste the code from the local agent's chat
 
----
-
-# Exercise 3 — ship to Genie Code
+### Ship to Genie Code
 
 > **→ Genie Code** — import zip, delete Ex 2 `dqx` skill, retry
 
@@ -254,9 +230,7 @@ whole family drive it.
 
 > Done? Restore your other skills: `mv ~/.agents/skills.bak/* ~/.agents/skills/`
 
----
-
-# Exercise 4 — push it further (optional)
+## Exercise 4 — push it further (optional, take-home)
 
 Skill works? Stress it. Tell your agent to **add more checks** and **spawn a
 source-blind subagent per task**, then compare:
@@ -274,11 +248,7 @@ Report per task: did it invent an API, did it stay source-blind, good/bad counts
 Every "I need the source", wrong function, or bad enum is a **gap in the skill** —
 fix the skill, not the prompt.
 
----
-
-<!-- _class: lead -->
-
-# ...now do it at scale (optional)
+## Exercise 5 — do it at scale (optional, take-home)
 
 You built **one** family by hand. But every framework your teams touch —
 ingestion, orchestration, ML, governance — needs one.
