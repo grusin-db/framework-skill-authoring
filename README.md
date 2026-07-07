@@ -144,8 +144,9 @@ clusters and serverless.
 ## Workshop
 
 Want to run this as a workshop (or try it yourself)? The [`workshop/`](workshop/)
-folder has ready-to-present material that rebuilds a real library's skill family
-from only the installed wheel, using [DQX](https://github.com/databrickslabs/dqx)
+folder has ready-to-present material that builds a real library's skill family
+from its source code, so a source-blind consumer with only the installed wheel
+can use it, using [DQX](https://github.com/databrickslabs/dqx)
 (`databricks-labs-dqx`) as the demo. See [`workshop/README.md`](workshop/README.md)
 for the files and flow:
 
@@ -157,8 +158,8 @@ for the files and flow:
   and practice: 3 theory sections + the same 3 points applied to DQX.
 - [`workshop/exercises.md`](workshop/exercises.md) — the hands-on exercises:
   (1) watch Genie Code fail at DQX with no skill, (2) drop in a tiny skill and
-  watch it get smart, (3) rebuild DQX's skill family from the wheel and deploy to
-  Genie Code.
+  watch it get smart, (3) build DQX's skill family from its source so a wheel-only
+  consumer can use it, then deploy to Genie Code.
 - [`workshop/testing-skills-with-subagents.md`](workshop/testing-skills-with-subagents.md) —
   how to prove a skill works: spawn source-blind sub-agents that must produce
   runnable code from the skill alone (rubric + execution gates).

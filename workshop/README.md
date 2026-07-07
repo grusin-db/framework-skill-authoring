@@ -1,8 +1,9 @@
 # Workshop
 
-Hands-on workshop: rebuild a real library's Agent Skills family from **only the
-installed wheel**, using [DQX](https://github.com/databrickslabs/dqx)
-(`databricks-labs-dqx`) as the demo framework.
+Hands-on workshop: build a real library's Agent Skills family **from its source
+code**, so that a **source-blind consumer with only the installed wheel** can use
+it. Uses [DQX](https://github.com/databrickslabs/dqx) (`databricks-labs-dqx`) as
+the demo framework.
 
 **A workshop in a repo is usually about that repo. This one isn't.**
 
@@ -21,7 +22,7 @@ thing for you.
 | --- | --- | --- |
 | [`requirements.md`](requirements.md) | Setup everyone should prepare **before** the workshop (laptop, an agent like Cursor/Claude Code, a Databricks workspace). Local Databricks Connect is **optional** — a notebook is enough to run code. | Send ahead of time so people arrive ready. |
 | [`skill-authoring-deck.md`](skill-authoring-deck.md) | **Theory + practice** — how to author a skill (source-blind consumer, activating description, structure/process/proof), applied to DQX. | Presented first, ~10 minutes. |
-| [`exercises.md`](exercises.md) | **Hands-on exercises**: (1) watch Genie Code fail at DQX with no skill, (2) drop in a tiny skill and watch it get smart, (3) build a real skill family from the wheel. | Kept on screen the whole time while people work hands-on. |
+| [`exercises.md`](exercises.md) | **Hands-on exercises**: (1) watch Genie Code fail at DQX with no skill, (2) drop in a tiny skill and watch it get smart, (3) build a real skill family from the source so a wheel-only consumer can use it. | Kept on screen the whole time while people work hands-on. |
 | [`testing-skills-with-subagents.md`](testing-skills-with-subagents.md) | **How to prove a skill works**: spawn source-blind sub-agents that must produce runnable code from the skill alone (rubric + execution gates). | The "test" step — how to validate what you built. |
 
 ## Flow
