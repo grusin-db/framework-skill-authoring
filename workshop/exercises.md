@@ -1,11 +1,13 @@
 # Exercises
 
 The exercises below take you from "DQX? never heard of it" to a real skill
-family, in three stages:
+family:
 
-1. **No skill** ([Ex 1](#exercise-1--no-skill-it-fails)) — watch Genie Code fail at DQX (or burn tokens trying to learn it)
-2. **Tiny skill** ([Ex 2](#exercise-2--drop-in-a-tiny-skill)) — watch it get smart
-3. **Real skill family** ([Ex 3](#exercise-3--set-up-the-dqx-repo), [Ex 4](#exercise-4--push-it-further-optional)) — build it properly
+1. **[No skill](#exercise-1--no-skill-it-fails)** — watch Genie Code fail at DQX (or burn tokens trying to learn it)
+2. **[Tiny skill](#exercise-2--drop-in-a-tiny-skill)** — watch it get smart
+3. **[Real skill family](#exercise-3--set-up-the-dqx-repo)** — build it properly
+4. **[Push it further](#exercise-4--push-it-further-optional)** (optional) — stress it with source-blind subagents
+5. **[Do it at scale](#exercise-5--do-it-at-scale-optional)** (optional) — automate whole families
 
 > **Demo data:** `samples.nyctaxi.trips` — built into every Databricks workspace.
 
@@ -231,7 +233,7 @@ Report per task: did it invent an API, did it stay source-blind, good/bad counts
 Every "I need the source", wrong function, or bad enum is a **gap in the skill** —
 fix the skill, not the prompt.
 
-## ...now do it at scale (optional)
+## Exercise 5 — do it at scale (optional)
 
 You built **one** family by hand. But every framework your teams touch —
 ingestion, orchestration, ML, governance — needs one.
