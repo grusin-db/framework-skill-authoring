@@ -208,6 +208,7 @@ Generate code only. Don't run.
 - Open new notebook
 - DQX is already on the cluster (see prerequisite) — if not, `%pip install databricks-labs-dqx`
 - Copy and paste the code from the local agent's chat
+- Run it! (one-shot hopefully works)
 
 ### Ship to Genie Code
 
