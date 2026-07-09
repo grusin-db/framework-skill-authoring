@@ -72,14 +72,39 @@ highest reasoning level you can afford for the best results, and let cheaper/
 faster models handle scanning and subagent exploration. This works best in
 Cursor, which auto-spawns Composer for the exploratory work.
 
-## How it works — four phases
+## How it works
 
-1. **Analyze** the source — public API, config object, declarative models, CLI,
-   runtime doc APIs, critical user journeys, decision points.
-2. **Map** to a universal capability taxonomy; emit only domains the framework has.
-3. **Generate** the workspace-instructions file, an entry router, and one skill
-   per capability.
-4. **Validate** — lint + a no-source consumer simulation of each journey.
+DE frameworks surface as **metadata** (pipeline YAML, entity models) or
+**libraries** (APIs you call in notebooks) — often a mix. Either way the surface
+is enum-heavy: load semantics, layers, quality severity, deploy modes. A notebook
+agent with only the wheel guesses wrong (`upsert` vs `append`, SCD Type 2 in the
+wrong layer, `warn` when you meant quarantine). The taxonomies are the same
+either way; this meta-skill reads the **source** and encodes them for a
+**source-blind consumer**. Four phases:
+
+1. **Analyze** — inventory the DE surface: public API and/or declarative models
+   + examples from tests; config (catalog, paths, env — never hardcode
+   `prod_catalog.schema.table`); deploy CLI and runtime catalogs; journeys from
+   integration tests (onboard → bronze → silver with CDC/SCD → expectations →
+   schedule → offboard); branch points (incremental vs CDC, SCD 1 vs 2, inline
+   expectations vs quality library, batch vs streaming, draft vs prod).
+
+2. **Map** — two checklists. **Capability taxonomy**: which *skills* to emit
+   (authoring, connectors, quality, reconciliation, orchestration, RLS,
+   exploration, offboarding) — has it → emit, doesn't → skip. **Conceptual
+   taxonomies**: enums to inline verbatim (medallion layers, full/incremental/
+   CDC/append, SCD 1/2, system columns, warn/drop/quarantine, DLT vs batch,
+   cron vs continuous, dev→prod promotion) — term → values → default →
+   consequence at the point of use.
+
+3. **Generate** — workspace-instructions file, entry router (with decision
+   trees), one skill per in-scope capability; place vocabularies in the skills
+   that own them; self-containment pass (no source paths, inline examples, wire
+   runtime doc APIs).
+
+4. **Validate** — structural lint, leakage scan, source-blind dry-runs of each
+   journey ("land CDC source", "add quarantine check", "schedule nightly"); fix
+   gaps and re-run until clean.
 
 Once generation is done, tune further with your own domain knowledge — add or
 remove capability domains, split or merge skills, and sharpen examples to match
