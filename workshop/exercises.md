@@ -113,6 +113,30 @@ Result: real DQX calls and runnable code.
 
 ## Exercise 3 — set up the DQX repo *(~20 min)*
 
+This is what we gonna build now. Building a skill family from source:
+
+```mermaid
+flowchart TB
+  subgraph AUTHOR[Author time -- has source]
+    direction LR
+    SRC[Framework source<br/>code, tests, docs] --> AGENT[Author agent +<br/>this meta-skill]
+  end
+
+  AGENT -->|analyze, map,<br/>generate, validate| FAMILY[Skill family<br/>entry router + capability skills<br/>+ workspace instructions]
+
+  subgraph RUNTIME[Run time -- no source]
+    direction LR
+    PKG[Installed package<br/>wheel / jar] --> CONSUMER[Consumer agent]
+  end
+
+  FAMILY --> CONSUMER
+
+  classDef artifact fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#1f2937;
+  classDef agent fill:#dbeafe,stroke:#2563eb,color:#1f2937;
+  class FAMILY artifact
+  class AGENT,CONSUMER agent
+```
+
 > **→ Laptop** — Cursor / Claude Code
 
 **1. Download the source** as a ZIP (not `git` — history lets the agent cheat):
