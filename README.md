@@ -82,29 +82,44 @@ wrong layer, `warn` when you meant quarantine). The taxonomies are the same
 either way; this meta-skill reads the **source** and encodes them for a
 **source-blind consumer**. Four phases:
 
-1. **Analyze** — inventory the DE surface: public API and/or declarative models
-   + examples from tests; config (catalog, paths, env — never hardcode
-   `prod_catalog.schema.table`); deploy CLI and runtime catalogs; journeys from
-   integration tests (onboard → bronze → silver with CDC/SCD → expectations →
-   schedule → offboard); branch points (incremental vs CDC, SCD 1 vs 2, inline
-   expectations vs quality library, batch vs streaming, draft vs prod).
+1. **Analyze** — inventory the DE surface:
+   - Public API and/or declarative models + examples from tests
+   - Config (catalog, paths, env — never hardcode `prod_catalog.schema.table`)
+   - Deploy CLI and runtime catalogs
+   - Journeys from integration tests: onboard → bronze → silver with CDC/SCD →
+     expectations → schedule → offboard
+   - Branch points: incremental vs CDC, SCD 1 vs 2, inline expectations vs
+     quality library, batch vs streaming, draft vs prod
 
-2. **Map** — two checklists. **Capability taxonomy**: which *skills* to emit
-   (authoring, connectors, quality, reconciliation, orchestration, RLS,
-   exploration, offboarding) — has it → emit, doesn't → skip. **Conceptual
-   taxonomies**: enums to inline verbatim (medallion layers, full/incremental/
-   CDC/append, SCD 1/2, system columns, warn/drop/quarantine, DLT vs batch,
-   cron vs continuous, dev→prod promotion) — term → values → default →
-   consequence at the point of use.
+2. **Map** — two checklists:
+   - **Capability taxonomy** — which *skills* to emit (authoring, connectors,
+     quality, reconciliation, orchestration, RLS, exploration, offboarding):
+     has it → emit, doesn't → skip
+   - **Conceptual taxonomies** — enums to inline verbatim; for each: term →
+     values → default → consequence at the point of use:
+     - Medallion layers
+     - Full / incremental / CDC / append
+     - SCD 1 / 2
+     - System columns
+     - Warn / drop / quarantine
+     - DLT vs batch
+     - Cron vs continuous
+     - Dev → prod promotion
 
-3. **Generate** — workspace-instructions file, entry router (with decision
-   trees), one skill per in-scope capability; place vocabularies in the skills
-   that own them; self-containment pass (no source paths, inline examples, wire
-   runtime doc APIs).
+3. **Generate**
+   - Workspace-instructions file
+   - Entry router with decision trees
+   - One skill per in-scope capability
+   - Place vocabularies in the skills that own them
+   - Self-containment pass: no source paths, inline examples, wire runtime doc
+     APIs
 
-4. **Validate** — structural lint, leakage scan, source-blind dry-runs of each
-   journey ("land CDC source", "add quarantine check", "schedule nightly"); fix
-   gaps and re-run until clean.
+4. **Validate**
+   - Structural lint
+   - Leakage scan
+   - Source-blind dry-runs of each journey ("land CDC source", "add quarantine
+     check", "schedule nightly")
+   - Fix gaps and re-run until clean
 
 Once generation is done, tune further with your own domain knowledge — add or
 remove capability domains, split or merge skills, and sharpen examples to match
